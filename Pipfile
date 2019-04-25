@@ -1,0 +1,24 @@
+[[source]]
+name = "pypi"
+url = "https://mirrors.aliyun.com/pypi/simple/"
+verify_ssl = true
+
+[dev-packages]
+
+[packages]
+flask = "*"
+pillow = "*"
+qiniu = "*"
+flask-sqlalchemy = "*"
+pymysql = "*"
+numpy = "*"
+imageio = "*"
+tensorflow = "==1.12.0"
+gunicorn = "*"
+requests = "*"
+scipy = "*"
+memory-profiler = "*"
+psutil = "*"
+
+[requires]
+python_version = "3.6"
