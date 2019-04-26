@@ -9,4 +9,4 @@ __author__ = 'lyy'
 DEBUG = True
 
 # 七牛云的baseUrl
-BASE_URL = "http://ytools.xyz/"
+BASE_URL = "https://ytools.xyz/"

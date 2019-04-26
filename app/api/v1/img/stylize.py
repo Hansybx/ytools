@@ -10,14 +10,14 @@ from flask import request, jsonify
 from app.api.v1.img import img
 from app.model.res import Res
 from app.utils.common_utils import get_date_now
-from app.utils.style_change.create_style_change_photo import change_style
+from app.utils.stylize.create_stylize_photo import change_style
 
 __author__ = 'lyy'
 
 path = os.getcwd() + '/app/utils/stylize'
 
 
-@img.route('/stylechange/create', methods=['POST'])
+@img.route('/stylize/create', methods=['POST'])
 def create_style_changed_img():
     start = datetime.datetime.now()
 

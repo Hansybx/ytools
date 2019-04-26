@@ -10,9 +10,9 @@ from flask import Blueprint
 # 定义一个蓝图
 img = Blueprint('img', __name__)
 
-from app.api.v1.img import pornhub, style_change
+from app.api.v1.img import ph_logo, stylize
 
 
 @img.route('/')
 def say_hello():
-    return 'hello,this is image'
+    return '这里是图片处理类的接口'

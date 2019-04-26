@@ -15,4 +15,4 @@ from app.api.v1.user import feedback
 
 @user.route('/')
 def say_hello():
-    return 'hello,this is user'
+    return '这里是用户处理类的接口'
