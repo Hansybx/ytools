@@ -6,6 +6,7 @@
 __author__ = 'lyy'
 
 from flask import Flask
+
 from app.model import db
 
 
