@@ -2,12 +2,12 @@
 '''
   Created by lyy on 2019-04-29
 '''
-from secure import BAIDU_APP_ID, BAIDU_API_KEY, BAIDU_SECRET_KEY
+from aip import AipImageClassify
+
+from app.secure import BAIDU_APP_ID, BAIDU_API_KEY, BAIDU_SECRET_KEY
 from app.utils.common_utils import get_file_content
 
 __author__ = 'lyy'
-
-from aip import AipImageClassify
 
 APP_ID = BAIDU_APP_ID
 API_KEY = BAIDU_API_KEY
