@@ -2,15 +2,16 @@
 '''
   Created by lyy on 2019-04-04
 '''
+import os
+
 from PIL import Image, ImageFont, ImageDraw
 
 from app.utils.common_utils import upload_pic_to_qiniu, get_ran_dom
 
-import os
-
 __author__ = 'lyy'
 
-path = os.getcwd()+'/app/utils/ph_logo'
+path = os.getcwd() + '/app/utils/ph_logo'
+
 
 # 在背景图片上写字
 def write_text_on_photo(text1, text2):
