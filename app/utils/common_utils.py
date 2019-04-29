@@ -31,8 +31,8 @@ def get_ran_dom():
 # 将生成的图片上传到七牛云
 # 传入filename和filepath，返回图片的URL
 def upload_pic_to_qiniu(filename, filepath):
-    from app.secure import QINIU_AK
-    from app.secure import QINIU_SK
+    from secure import QINIU_AK
+    from secure import QINIU_SK
 
     access_key = QINIU_AK
     secret_key = QINIU_SK
