@@ -2,6 +2,7 @@
 '''
   Created by lyy on 2019-04-06
 '''
+
 import datetime
 import random
 
@@ -46,3 +47,9 @@ def upload_pic_to_qiniu(filename, filepath):
 
     ret, info = put_file(token, filename, filepath)
     return BASE_URL + ret['key']
+
+
+# 获取图片路径
+def get_file_content(filePath):
+    with open(filePath, 'rb') as fp:
+        return fp.read()

@@ -2,10 +2,7 @@
 
 import os
 
-import numpy as np
-import tensorflow as tf
 from PIL import Image
-from imageio import imread, imsave
 
 from app.utils.common_utils import upload_pic_to_qiniu, get_ran_dom
 from app.utils.stylize.evaluate import ffwd_to_img
