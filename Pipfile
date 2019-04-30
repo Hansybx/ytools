@@ -21,5 +21,6 @@ memory-profiler = "*"
 psutil = "*"
 baidu-aip = "*"
 
+
 [requires]
 python_version = "3.6"

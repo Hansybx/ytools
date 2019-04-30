@@ -5,12 +5,12 @@
 
 __author__ = 'lyy'
 
-from app.utils.common_utils import get_date_now
 from flask import request, jsonify
 
-from app.model.res import Res
-from app.utils.ph_logo.create_ph_logo import write_text_on_photo
 from app.api.v1.img import img
+from app.model.res import Res
+from app.utils.common_utils import get_date_now
+from app.utils.ph_logo.create_ph_logo import write_text_on_photo
 
 
 @img.route('/phlogo/hello')

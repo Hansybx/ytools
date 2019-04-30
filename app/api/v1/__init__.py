@@ -12,3 +12,4 @@ v1 = Blueprint('v1', __name__)
 
 from app.api.v1.img import img
 from app.api.v1.user import user
+from app.api.v1.text import text
