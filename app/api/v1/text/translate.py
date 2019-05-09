@@ -17,16 +17,18 @@ __author__ = 'lyy'
 @text.route('/translate', methods=['POST'])
 def translate():
     query = request.form['query']
-    language = request.form['language']
+    word_from = request.form['from']
+    word_to = request.form['to']
 
-    result = translate_from_baidu(query, language)
+    result = translate_from_baidu(query, word_from, word_to)
 
     status = 200
-    msg = '图片生成成功'
+    msg = '翻译成功'
     info = [
         {
             'query': query,
-            'language': language,
+            'from': word_from,
+            'to': word_to,
             'result': result["trans_result"],
             'query_time': get_date_now()
         }

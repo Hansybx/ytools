@@ -13,7 +13,7 @@ __author__ = 'lyy'
 
 
 # 翻译的工具方法
-def translate_from_baidu(query, language):
+def translate_from_baidu(query, word_from, word_to):
     appid = BAIDU_TRANSLATE_APP_ID
     secretKey = BAIDU_TRANSLATE_SK
     salt = str(random.randint(32768, 65536))
@@ -26,8 +26,8 @@ def translate_from_baidu(query, language):
     post_url = 'https://fanyi-api.baidu.com/api/trans/vip/translate'
     data = {
         'q': query,
-        'from': 'auto',
-        'to': language,
+        'from': word_from,
+        'to': word_to,
         'appid': appid,
         'salt': salt,
         'sign': sign
