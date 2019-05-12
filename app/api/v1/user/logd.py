@@ -8,13 +8,13 @@ from app.model.log import Log
 from app.model.res import Res
 from app.secure import WX_AID, WX_ASK
 
-__author__ = 'lyy'
-
 from app.model import db
 
 from app.utils.common_utils import get_date_now
 from app.api.v1.user import user
 from flask import request, jsonify
+
+__author__ = 'lyy'
 
 
 # 微信的登录接口
@@ -24,18 +24,6 @@ def wx_login():
     url = 'https://api.weixin.qq.com/sns/jscode2session?appid=' + WX_AID + '&secret=' + WX_ASK + '&js_code=' + code + '&grant_type=authorization_code'
     res = requests.get(url)
     return jsonify(res.json())
-
-
-@user.route('/test')
-def test_ip():
-    ip = request.remote_addr
-    try:
-        _ip = request.headers["X-Real-IP"]
-        if _ip is not None:
-            ip = _ip
-    except Exception as e:
-        print(e)
-    return ip
 
 
 # 将用户的访问信息存储到数据库中
