@@ -13,6 +13,11 @@ from app.setting import BASE_URL
 __author__ = 'lyy'
 
 
+# 获取今天的日期
+def get_today():
+    return str(datetime.datetime.now().strftime("%Y/%m/%d"))
+
+
 # 获取当前时间
 def get_date_now():
     return str(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))

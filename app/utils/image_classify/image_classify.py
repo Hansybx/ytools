@@ -43,6 +43,15 @@ def car_classify(img):
     return res
 
 
+# 食物识别
+def food_classify(img):
+    image = get_file_content(img)
+
+    """ 调用车辆识别 """
+    res = client.dishDetect(image)
+    return res
+
+
 if __name__ == '__main__':
-    res = animals_classify('temp/animal.jpg')
+    res = food_classify('temp/food.jpg')
     print(res)

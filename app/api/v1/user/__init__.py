@@ -10,7 +10,7 @@ from flask import Blueprint
 # 定义一个蓝图
 user = Blueprint('user', __name__)
 
-from app.api.v1.user import feedback
+from app.api.v1.user import feedback, logd, login
 
 
 @user.route('/')

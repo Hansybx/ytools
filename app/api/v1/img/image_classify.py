@@ -10,7 +10,7 @@ from flask import request, jsonify
 from app.api.v1.img import img
 from app.model.res import Res
 from app.utils.common_utils import get_date_now
-from app.utils.image_classify.image_classify import animals_classify, plant_classify, car_classify
+from app.utils.image_classify.image_classify import animals_classify, plant_classify, car_classify, food_classify
 
 __author__ = 'lyy'
 
@@ -82,6 +82,33 @@ def car():
     img.save(save_path)
 
     result = car_classify(save_path)
+
+    end = datetime.datetime.now()
+
+    status = 200
+    msg = '图片识别成功'
+    info = [
+        {
+            'query_time': get_date_now(),
+            'finish_time': (end - start).seconds,
+            'result': result['result']
+        }
+    ]
+
+    res_json = Res(status, msg, info)
+
+    return jsonify(res_json.__dict__)
+
+
+# 识别车辆
+@img.route('/classify/food', methods=['POST'])
+def food():
+    start = datetime.datetime.now()
+    img = request.files.get('img')
+    save_path = path + '/temp/' + 'food.jpg'
+    img.save(save_path)
+
+    result = food_classify(save_path)
 
     end = datetime.datetime.now()
 

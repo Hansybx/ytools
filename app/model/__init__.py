@@ -8,4 +8,4 @@ __author__ = 'lyy'
 
 db = SQLAlchemy()
 
-from app.model import feedback
+from app.model import feedback, log, user
