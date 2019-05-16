@@ -4,7 +4,7 @@ import os
 
 from PIL import Image
 
-from app.utils.common_utils import upload_pic_to_qiniu, get_ran_dom
+from app.utils.common_utils import upload_file_to_qiniu, get_ran_dom
 from app.utils.stylize.evaluate import ffwd_to_img
 
 path = os.getcwd() + '/app/utils/stylize'
@@ -43,7 +43,7 @@ def change_style(image_style):
     # 执行生成图片的操作
     ffwd_to_img(content_image, result_image, check_point_dir)
 
-    img_url = upload_pic_to_qiniu(filename, result_image)
+    img_url = upload_file_to_qiniu(filename, result_image)
 
     return img_url
 

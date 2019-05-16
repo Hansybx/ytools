@@ -6,7 +6,7 @@ import os
 
 from PIL import Image, ImageFont, ImageDraw
 
-from app.utils.common_utils import upload_pic_to_qiniu, get_ran_dom
+from app.utils.common_utils import upload_file_to_qiniu, get_ran_dom
 
 __author__ = 'lyy'
 
@@ -44,7 +44,7 @@ def write_text_on_photo(text1, text2):
     filename = str(text1 + '_' + text2 + '_' + get_ran_dom() + '.jpg').lower()
     filepath = path + '/output/ph_logo.jpg'
 
-    img_url = upload_pic_to_qiniu(filename, filepath)
+    img_url = upload_file_to_qiniu(filename, filepath)
 
     return img_url
 
