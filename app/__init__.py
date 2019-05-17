@@ -25,11 +25,13 @@ def register_blueprint(app):
     from app.api.v1.img import img
     from app.api.v1.user import user
     from app.api.v1.text import text
+    from app.api.v1.song import song
 
     app.register_blueprint(v1, url_prefix='/api/v1')
     app.register_blueprint(img, url_prefix='/api/v1/img')
     app.register_blueprint(user, url_prefix='/api/v1/user')
     app.register_blueprint(text, url_prefix='/api/v1/text')
+    app.register_blueprint(song, url_prefix='/api/v1/song')
 
 
 def init_db(app):
