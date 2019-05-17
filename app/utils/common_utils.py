@@ -72,6 +72,13 @@ def get_file_content(filePath):
         return fp.read()
 
 
+# 序列化sqlalchemy model
+def serialize(model):
+    from sqlalchemy.orm import class_mapper
+    columns = [c.key for c in class_mapper(model.__class__).columns]
+    return dict((c, getattr(model, c)) for c in columns)
+
+
 if __name__ == '__main__':
     url = upload_file_to_qiniu('test.mp3',
                                'http://mobileoc.music.tc.qq.com/C6000009BCJK1nRaad.m4a?guid=BZQLL&vkey=06835A70D790937C6A2E07FEC692858DAE1B32E76E5871903763323FA38AAEB822B3AFAE8A959FE451C2C71B8C41AC36DECE986FC1695119&uin=0&fromtag=8')

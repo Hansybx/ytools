@@ -2,14 +2,29 @@
 '''
   Created by lyy on 2019-04-04
 '''
-import requests
+import smtplib
 
 
-def get_ip_info(ip):
-    url = 'http://ip.taobao.com/service/getIpInfo.php?ip=' + ip
-    r = requests.get(url)
-    print(r.json())
+def send_email():
+    sender = 'from@fromdomain.com'
+    receivers = ['to@todomain.com']
+
+    message = """From: From Person <from@fromdomain.com>
+    To: To Person <to@todomain.com>
+    Subject: SMTP e-mail test
+
+    This is a test e-mail message.
+    """
+
+    try:
+        smtpObj = smtplib.SMTP('localhost')
+        smtpObj.sendmail(sender, receivers, message)
+        print
+        "Successfully sent email"
+    except Exception:
+        print
+        "Error: unable to send email"
 
 
 if __name__ == '__main__':
-    get_ip_info('119.23.212.45')
+    send_email()
