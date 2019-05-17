@@ -6,7 +6,7 @@
 import json
 from threading import Thread
 
-from flask import request, jsonify
+from flask import request, jsonify, Flask
 from flask_mail import Mail, Message
 from flask_script import Manager
 
@@ -15,10 +15,12 @@ from app.model import db
 from app.model.feedback import FeedBack
 from app.model.res import Res
 from app.utils.common_utils import get_date_now
-from main import app
 
 __author__ = 'lyy'
 
+app = Flask(__name__)
+app.config.from_object('app.setting')
+app.config.from_object('app.secure')
 manager = Manager(app)
 mail = Mail(app)
 
