@@ -6,7 +6,7 @@
 import datetime
 import random
 
-from qiniu import Auth, put_file, BucketManager
+from qiniu import Auth, put_file, BucketManager, urlsafe_base64_encode, PersistentFop
 
 from app.setting import BASE_URL
 
@@ -51,9 +51,28 @@ def upload_file_to_qiniu(filename, filepath):
     if 'http' in filepath:
         bucket_manager = BucketManager(auth)
         ret, info = bucket_manager.fetch(filepath, bucket_name, filename)
+
         if info.status_code == 200:
-            file_url = BASE_URL + filename
-            return file_url
+            # 如果是m4a格式的就进行转码
+            if 'm4a' in filename:
+                # 要进行转码的转码操作。
+                fops = 'avthumb/mp3/ab/192k'
+                # 可以对转码后的文件进行使用saveas参数自定义命名，当然也可以不指定文件会默认命名并保存在当前空间
+                saveas_key = urlsafe_base64_encode('ytools:' + filename.replace('m4a', 'mp3'))
+                fops = fops + '|saveas/' + saveas_key
+                pfop = PersistentFop(auth, bucket_name)
+                ops = []
+                ops.append(fops)
+                ret, info = pfop.execute(filename, ops, 1)
+                if ret['persistentId'] is not None:
+                    # 转码成功，生成新url
+                    filename = filename.replace('m4a', 'mp3')
+                    file_url = BASE_URL + filename
+                    # # 删除原有文件
+                    # ret, info = bucket_manager.delete(bucket_name, filename.replace('mp3', 'm4a'))
+                    # print(ret)
+                    # print(info)
+                    return file_url
         else:
             return False
     # 如果不是网络资源那就自定义路径
@@ -70,6 +89,13 @@ def upload_file_to_qiniu(filename, filepath):
 def get_file_content(filePath):
     with open(filePath, 'rb') as fp:
         return fp.read()
+
+
+# 序列化sqlalchemy model
+def serialize(model):
+    from sqlalchemy.orm import class_mapper
+    columns = [c.key for c in class_mapper(model.__class__).columns]
+    return dict((c, getattr(model, c)) for c in columns)
 
 
 if __name__ == '__main__':

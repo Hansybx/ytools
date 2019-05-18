@@ -10,3 +10,8 @@ DEBUG = True
 
 # 七牛云的baseUrl
 BASE_URL = "https://ytools.xyz/"
+
+MAIL_SUPPRESS_SEND = False
+MAIL_DEBUG = False
+MAIL_USE_SSL = True
+MAIL_USE_TLS = False

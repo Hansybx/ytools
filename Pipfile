@@ -20,6 +20,8 @@ scipy = "*"
 memory-profiler = "*"
 psutil = "*"
 baidu-aip = "*"
+flask-mail = "*"
+flask-script = "*"
 
 [requires]
 python_version = "3.6"
