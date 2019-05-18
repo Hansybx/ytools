@@ -33,27 +33,30 @@ def find_all_url(sentence):
 # 从原始url中获取音乐的id
 def get_song_id(url):
     id = ''
-    if 'c.y.qq.com' in url:
-        res = requests.get(url, headers=headers, allow_redirects=False)
-        url = res.headers['location']
-        # https://i.y.qq.com/v8/playsong.html?ADTAG=erweimashare&_wv=1&appshare=android_qq&appsongtype=1&appversion=9000007&channelId=10036163&hosteuin=oK6kowEAoK4z7eEzoi4s7K6P7v%2A%2A&openinqqmusic=1&platform=11&songmid=001xd0HI0X9GNq&type=0
-        for param in url.split('&'):
-            if 'songmid' in param:
-                id = param.replace('songmid=', '')
-            elif 'songid' in param:
-                songid = param.replace('songid=', '')
-                temp_url = 'https://c.y.qq.com/v8/fcg-bin/fcg_play_single_song.fcg?songid=' + songid + '&tpl=yqq_song_detail&format=jsonp&callback=getOneSongInfoCallback'
-                temp_res = requests.get(temp_url).text.replace('getOneSongInfoCallback(', '')[0:-1]
-                temp_res = json.loads(temp_res)
-                id = temp_res['data'][0]['mid']
-        return id
+    try:
+        if 'c.y.qq.com' in url:
+            res = requests.get(url, headers=headers, allow_redirects=False)
+            url = res.headers['location']
+            # https://i.y.qq.com/v8/playsong.html?ADTAG=erweimashare&_wv=1&appshare=android_qq&appsongtype=1&appversion=9000007&channelId=10036163&hosteuin=oK6kowEAoK4z7eEzoi4s7K6P7v%2A%2A&openinqqmusic=1&platform=11&songmid=001xd0HI0X9GNq&type=0
+            for param in url.split('&'):
+                if 'songmid' in param:
+                    id = param.replace('songmid=', '')
+                elif 'songid' in param:
+                    songid = param.replace('songid=', '')
+                    temp_url = 'https://c.y.qq.com/v8/fcg-bin/fcg_play_single_song.fcg?songid=' + songid + '&tpl=yqq_song_detail&format=jsonp&callback=getOneSongInfoCallback'
+                    temp_res = requests.get(temp_url).text.replace('getOneSongInfoCallback(', '')[0:-1]
+                    temp_res = json.loads(temp_res)
+                    id = temp_res['data'][0]['mid']
+            return id
 
 
-    elif 'y.qq.com' in url:
-        end_index = url.find('.html')
-        id = url[28:end_index].replace('.html', '')
-        return id
-    return 'url异常'
+        elif 'y.qq.com' in url:
+            end_index = url.find('.html')
+            id = url[28:end_index].replace('.html', '')
+            return id
+    except KeyError:
+        return None
+    return None
 
 
 # 根据音乐id获取音乐的真实地址
@@ -86,22 +89,32 @@ def get_song_author_name_by_id(id):
 
 # 从文本获取song对象
 def get_song_by_text(text):
-    url = find_all_url(text)[0]
+    try:
+        url = find_all_url(text)[0]
+    except IndexError:
+        return None
 
     if len(url) > 0:
         sid = get_song_id(url)
+        if sid is not None:
+            song = get_song_in_mysql(sid)
+            if song is None or song.sid.strip == '':
+                try:
+                    origin_url = get_song_url_by_id(sid)
+                    spic = get_song_pic_by_id(sid)
+                    sauthor, sname = get_song_author_name_by_id(sid)
+                    download_url = upload_file_to_qiniu(sauthor + '_' + sname + '.m4a', origin_url)
 
-        song = get_song_in_mysql(sid)
-        if song is None or song.sid.strip == '':
-            origin_url = get_song_url_by_id(sid)
-            spic = get_song_pic_by_id(sid)
-            sauthor, sname = get_song_author_name_by_id(sid)
-            download_url = upload_file_to_qiniu(sauthor + '_' + sname + '.mp3', origin_url)
-
-            song = Song(sid=sid, sname=sname, sauthor=sauthor, spic=spic, origin_url=origin_url,
-                        download_url=download_url)
-            put_song_to_mysql(song)
-        return song
+                    song = Song(sid=sid, sname=sname, sauthor=sauthor, spic=spic, origin_url=origin_url,
+                                download_url=download_url)
+                    put_song_to_mysql(song)
+                    return song
+                except KeyError:
+                    return None
+            else:
+                return song
+        else:
+            return None
 
 
 # 从数据库中获取音乐数据

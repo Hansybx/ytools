@@ -29,13 +29,29 @@ def download_qq_song():
 
     end = datetime.datetime.now()
 
-    if song.id > 0:
-        status = 200
-        msg = '音乐获取成功'
+    if song is not None:
+        if song.id > 0:
+            status = 200
+            msg = '音乐获取成功'
+            info = [
+                {
+                    'text': text,
+                    'song': serialize(song),
+                    'created_time': get_date_now(),
+                    'finish_time': (end - start).seconds
+                }
+            ]
+
+            res_json = Res(status, msg, info)
+
+            return jsonify(res_json.__dict__)
+    else:
+        status = 404
+        msg = '未找到资源，请联系管理员'
         info = [
             {
                 'text': text,
-                'song': serialize(song),
+                'song': '',
                 'created_time': get_date_now(),
                 'finish_time': (end - start).seconds
             }
