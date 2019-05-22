@@ -38,5 +38,5 @@ def translate_from_baidu(query, word_from, word_to):
 
 
 if __name__ == '__main__':
-    res = translate_from_baidu('苹果', 'en')
+    res = translate_from_baidu('苹果', 'zh', 'en')
     print(res)
