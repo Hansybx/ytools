@@ -53,5 +53,5 @@ def food_classify(img):
 
 
 if __name__ == '__main__':
-    res = food_classify('temp/food.jpg')
+    res = car_classify('temp_pic/car.jpg')
     print(res)
