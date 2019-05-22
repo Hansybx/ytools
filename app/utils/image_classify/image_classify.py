@@ -47,7 +47,7 @@ def car_classify(img):
 def food_classify(img):
     image = get_file_content(img)
 
-    """ 调用车辆识别 """
+    """ 调用食物识别 """
     res = client.dishDetect(image)
     return res
 
