@@ -20,8 +20,9 @@ def faceIdentity(img):
 
     """ 可选参数 """
     options = {}
-    options["face_field"] = "age,gender,beauty"
-    options["max_face_num"] = 10
+    options[
+        "face_field"] = "age,beauty,expression,face_shape,gender,glasses,landmark,landmark72,landmark150,race,quality,eye_status,emotion,face_type"
+    options["max_face_num"] = 1
     options["face_type"] = "LIVE"
     """ 带参数调用人脸检测 """
     res = client.detect(image64, imageType, options)
