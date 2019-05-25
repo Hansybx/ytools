@@ -11,6 +11,7 @@ from flask import Blueprint
 song = Blueprint('song', __name__)
 
 from app.api.v1.song import download_song
+from app.api.v1.song import download_song_cloudmusic
 
 
 @song.route('/')
