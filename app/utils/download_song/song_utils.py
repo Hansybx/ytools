@@ -41,13 +41,31 @@ def get_song_id(url):
             for param in url.split('&'):
                 if 'songmid' in param:
                     id = param.replace('songmid=', '')
+                    if id is not '':
+                        return id
                 elif 'songid' in param:
+                    songid = param.replace('songid=', '')
+                    if songid is not '':
+                        temp_url = 'https://c.y.qq.com/v8/fcg-bin/fcg_play_single_song.fcg?songid=' + songid + '&tpl=yqq_song_detail&format=jsonp&callback=getOneSongInfoCallback'
+                        temp_res = requests.get(temp_url).text.replace('getOneSongInfoCallback(', '')[0:-1]
+                        temp_res = json.loads(temp_res)
+
+                        id = temp_res['data'][0]['mid']
+                        return id
+            return id
+
+        elif 'i.y.qq.com' in url:
+            for param in url.split('&'):
+                if 'songid' in param:
                     songid = param.replace('songid=', '')
                     temp_url = 'https://c.y.qq.com/v8/fcg-bin/fcg_play_single_song.fcg?songid=' + songid + '&tpl=yqq_song_detail&format=jsonp&callback=getOneSongInfoCallback'
                     temp_res = requests.get(temp_url).text.replace('getOneSongInfoCallback(', '')[0:-1]
                     temp_res = json.loads(temp_res)
                     id = temp_res['data'][0]['mid']
-            return id
+                elif 'songmid' in param:
+                    id = param.replace('songmid=', '')
+                if id is not '':
+                    return id
 
 
         elif 'y.qq.com' in url:
@@ -133,4 +151,9 @@ def put_song_to_mysql(song):
 if __name__ == '__main__':
     # origin_url, download_url = download_song_by_text("https://c.y.qq.com/base/fcgi-bin/u?__=9Vw3n9")
     # print(origin_url, download_url)
-    id = get_song_id('https://c.y.qq.com/base/fcgi-bin/u?__=9Vw3n9')
+    # id = get_song_id('')
+    # song = get_song_by_text(
+    #     'https://i.y.qq.com/v8/playsong.html?hosteuin=oKokoK4qoeSF7v**&songid=200470437&songmid=&type=0&platform=1&appsongtype=1&_wv=1&source=qq&appshare=iphone&media_mid=0041DRmt21hZLU&_wv=1')
+    # print(song)
+    print(get_song_id('https://c.y.qq.com/base/fcgi-bin/u?__=Bcj7Jp'))
+    pass
