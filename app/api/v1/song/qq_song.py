@@ -9,14 +9,9 @@ from flask import request, jsonify
 from app.api.v1.song import song
 from app.model.res import Res
 from app.utils.common_utils import get_date_now, serialize
-from app.utils.download_song.song_utils import get_song_by_text
+from app.utils.download_song.qq_music import get_song_by_text
 
 __author__ = 'lyy'
-
-
-@song.route('/hello')
-def say_song():
-    return 'this is song'
 
 
 @song.route('/qq/download', methods=['POST'])
@@ -60,4 +55,3 @@ def download_qq_song():
         res_json = Res(status, msg, info)
 
         return jsonify(res_json.__dict__)
-

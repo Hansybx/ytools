@@ -10,8 +10,8 @@ from flask import Blueprint
 # 定义一个蓝图
 song = Blueprint('song', __name__)
 
-from app.api.v1.song import download_song
-from app.api.v1.song import download_song_cloudmusic
+from app.api.v1.song import netease_song
+from app.api.v1.song import qq_song
 
 
 @song.route('/')

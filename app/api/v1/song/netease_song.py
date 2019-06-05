@@ -5,11 +5,11 @@ from flask import request, jsonify
 from app.api.v1.song import song
 from app.model.res import Res
 from app.utils.common_utils import get_date_now, serialize
-from app.utils.download_song.cloudmusic_utlis import get_song_by_text
+from app.utils.download_song.netease_music import get_song_by_text
 
 
-@song.route('/cloudmusic/download', methods=['POST'])
-def download_cloudmusic_song():
+@song.route('/netease/download', methods=['POST'])
+def download_netease_song():
     text = request.form['text']
 
     start = datetime.datetime.now()
