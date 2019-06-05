@@ -60,3 +60,4 @@ def download_qq_song():
         res_json = Res(status, msg, info)
 
         return jsonify(res_json.__dict__)
+
