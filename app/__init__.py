@@ -2,6 +2,7 @@
 '''
   Created by lyy on 2019-04-04
 '''
+from flask_cors import CORS
 
 __author__ = 'lyy'
 
@@ -11,7 +12,9 @@ from app.model import db
 
 
 def create_app():
-    app = Flask(__name__)
+    app = Flask(__name__, template_folder='web/templates')
+    CORS(app, supports_credentials=True)
+
     app.config.from_object('app.setting')
     app.config.from_object('app.secure')
 
@@ -26,12 +29,14 @@ def register_blueprint(app):
     from app.api.v1.user import user
     from app.api.v1.text import text
     from app.api.v1.song import song
+    from app.api.v1.others import others
 
     app.register_blueprint(v1, url_prefix='/api/v1')
     app.register_blueprint(img, url_prefix='/api/v1/img')
     app.register_blueprint(user, url_prefix='/api/v1/user')
     app.register_blueprint(text, url_prefix='/api/v1/text')
     app.register_blueprint(song, url_prefix='/api/v1/song')
+    app.register_blueprint(song, url_prefix='/api/v2/others')
 
 
 def init_db(app):

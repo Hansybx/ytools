@@ -6,21 +6,20 @@
 import json
 from threading import Thread
 
-from flask import request, jsonify, Flask
+from flask import request, jsonify
 from flask_mail import Mail, Message
 from flask_script import Manager
 
+from app import create_app
 from app.api.v1.user import user
 from app.model import db
 from app.model.feedback import FeedBack
 from app.model.res import Res
-from app.utils.common_utils import get_date_now
+from app.utils.common_utils import get_date_now, upload_file_to_qiniu, get_ran_dom
 
 __author__ = 'lyy'
 
-app = Flask(__name__)
-app.config.from_object('app.setting')
-app.config.from_object('app.secure')
+app = create_app()
 manager = Manager(app)
 mail = Mail(app)
 
@@ -28,7 +27,10 @@ mail = Mail(app)
 @user.route('/feedback/create', methods=['POST'])
 def feedback():
     data = request.data
+
     json_text = json.loads(data)
+
+    print(json_text)
 
     # 反馈人的uid
     uid = json_text['uid']
@@ -36,10 +38,13 @@ def feedback():
     content = json_text['content']
     # 反馈人的联系方式
     contact = json_text['contact']
+    # 反馈的图片
+    pic = json_text['pic']
+    pic = upload_file_to_qiniu(get_ran_dom() + '.jpg', pic)
     # 反馈的来源
     origin = json_text['origin']
 
-    feedback = FeedBack(uid, content, contact, origin)
+    feedback = FeedBack(uid, content, pic, contact, origin)
 
     db.session.add(feedback)
     db.session.commit()
@@ -70,10 +75,11 @@ def send_async_email(app, msg):
 # 发送邮件
 def send_email(app, feedback):
     msg = Message('开挂(ytools)', sender='420326369@qq.com',
-                  recipients=['yueyong1030@outlook.com', '152210702112@stu.just.edu.cn'])
+                  recipients=['152210702112@stu.just.edu.cn'])
     msg.body = str(
-        '反馈id：' + str(feedback.id) + '\n反馈内容：' + str(feedback.content) + '\n反馈用户id：' + str(
-            feedback.uid) + '\n反馈来源：' + str(feedback.origin) + '\n联系方式：' + str(feedback.contact) + '\n反馈时间：' + str(
+        '反馈id：' + str(feedback.id) + '\n反馈用户id：' + str(feedback.uid) + '\n反馈内容：' + str(
+            feedback.content) + '\n反馈图片：' + str(feedback.pic) + '\n反馈来源：' + str(feedback.origin) + '\n联系方式：' + str(
+            feedback.contact) + '\n反馈时间：' + str(
             feedback.created_time))
 
     thr = Thread(target=send_async_email, args=[app, msg])

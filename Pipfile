@@ -22,6 +22,8 @@ psutil = "*"
 baidu-aip = "*"
 flask-mail = "*"
 flask-script = "*"
+flask-cors = "*"
+speedtest-cli = "*"
 
 [requires]
 python_version = "3.6"

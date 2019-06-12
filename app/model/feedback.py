@@ -17,6 +17,8 @@ class FeedBack(db.Model):
     uid = Column(String(50), nullable=False)
     # 反馈的内容
     content = Column(String(50), nullable=False)
+    # 反馈的图片
+    pic = Column(String(1000), nullable=False)
     # 反馈人的联系方式
     contact = Column(String(50), nullable=False)
     # 反馈的来源
@@ -24,9 +26,10 @@ class FeedBack(db.Model):
     # 反馈的时间
     created_time = Column(String(50), nullable=False)
 
-    def __init__(self, uid, content, contact, origin):
+    def __init__(self, uid, content, pic, contact, origin):
         self.uid = uid
         self.content = content
+        self.pic = pic
         self.contact = contact
         self.origin = origin
         self.created_time = common_utils.get_date_now()
