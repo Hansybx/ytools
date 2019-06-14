@@ -15,7 +15,7 @@ from app.api.v1.user import user
 from app.model import db
 from app.model.feedback import FeedBack
 from app.model.res import Res
-from app.utils.common_utils import get_date_now, upload_file_to_qiniu, get_ran_dom
+from app.utils.common_utils import get_date_now
 
 __author__ = 'lyy'
 
@@ -40,7 +40,6 @@ def feedback():
     contact = json_text['contact']
     # 反馈的图片
     pic = json_text['pic']
-    pic = upload_file_to_qiniu(get_ran_dom() + '.jpg', pic)
     # 反馈的来源
     origin = json_text['origin']
 
