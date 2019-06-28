@@ -14,7 +14,7 @@ from flask import Blueprint
 # 定义一个蓝图
 img = Blueprint('img', __name__)
 
-from app.api.v1.img import ph_logo, stylize, image_classify, ocr, ai_face_beauty
+from app.api.v1.img import ph_logo, stylize, image_classify, ocr, face
 
 
 @img.route('/')

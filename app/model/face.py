@@ -33,3 +33,17 @@ class Face(db.Model):
         self.face_gender = face_gender
         self.face_beauty = face_beauty
         self.created_time = common_utils.get_date_now()
+
+    # 单个对象方法2
+    def single_to_dict(self):
+        return {c.name: getattr(self, c.name) for c in self.__table__.columns}
+
+    # 多个对象
+    def dobule_to_dict(self):
+        result = {}
+        for key in self.__mapper__.c.keys():
+            if getattr(self, key) is not None:
+                result[key] = str(getattr(self, key))
+            else:
+                result[key] = getattr(self, key)
+        return result
