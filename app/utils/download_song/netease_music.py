@@ -1,4 +1,3 @@
-import json
 import re
 
 import requests
@@ -29,10 +28,10 @@ def get_song_id(url):
     char = re.findall('song[\s\S]', url)
     Jchar = str(char[0])
     if Jchar[-1] == '?':
-        id = re.findall('id=(\d*)',url)
+        id = re.findall('id=(\d*)', url)
         return id[0]
     elif Jchar[-1] == '/':
-        id = re.findall('song/(\d*)',url)
+        id = re.findall('song/(\d*)', url)
         return id[0]
 
 
@@ -94,7 +93,7 @@ def get_song_by_text(text):
                     origin_url = get_song_url_by_id(sid)
                     spic = get_song_pic_by_id(sid)
                     sauthor, sname = get_song_author_name_by_id(sid)
-                    download_url = upload_file_to_qiniu(sauthor + '_' + sname + '.m4a', origin_url)
+                    download_url = upload_file_to_qiniu(str(sid) + '.m4a', origin_url)
 
                     song = Song(sid=sid, sname=sname, sauthor=sauthor, spic=spic, origin_url=origin_url,
                                 download_url=download_url)
@@ -109,8 +108,7 @@ def get_song_by_text(text):
 
 
 if __name__ == "__main__":
-    id = get_song_id('http://music.163.com/song/421423808/?userid=377405358)')
+    id = get_song_id('分享弦子的单曲《舍不得》: http://music.163.com/song/306575/?userid=135960009 (来自@网易云音乐)')
     # res = get_song_by_text('http://music.163.com/song/432698825/?userid=377405358 (来自@网易云音乐)')
-    res,a= get_song_author_name_by_id(id)
-    print(res)
-    print(a)
+    url = get_song_url_by_id(id)
+    print(url)

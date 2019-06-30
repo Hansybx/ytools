@@ -2,6 +2,7 @@
 '''
   Created by lyy on 2019-04-04
 '''
+from flask_cors import CORS
 
 __author__ = 'lyy'
 
@@ -11,7 +12,9 @@ from app.model import db
 
 
 def create_app():
-    app = Flask(__name__)
+    app = Flask(__name__, template_folder='web/templates')
+    CORS(app, supports_credentials=True)
+
     app.config.from_object('app.setting')
     app.config.from_object('app.secure')
 

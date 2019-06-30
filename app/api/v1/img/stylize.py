@@ -24,7 +24,8 @@ def create_style_changed_img():
     img = request.files.get('img')
     type = request.form.get('type')
 
-    img.save(path + '/temp/' + 'temp.jpg')
+    # img = img.convert('RGB')
+    img.save(path + '/temp/' + 'temp.png')
 
     img_url = change_style(int(type))
 

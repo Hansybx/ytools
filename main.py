@@ -4,6 +4,7 @@
 '''
 
 __author__ = 'lyy'
+from flask import render_template
 
 from app import create_app
 
@@ -11,9 +12,9 @@ app = create_app()
 
 
 @app.route('/')
-def hello():
-    return 'hello,flask'
+def index():
+    return render_template('index.html')
 
 
 if __name__ == '__main__':
-    app.run(port=8080, debug=app.config['DEBUG'], host='0.0.0.0')
+    app.run(port=8080, debug=app.config['DEBUG'])

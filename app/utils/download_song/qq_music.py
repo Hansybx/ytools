@@ -121,7 +121,7 @@ def get_song_by_text(text):
                     origin_url = get_song_url_by_id(sid)
                     spic = get_song_pic_by_id(sid)
                     sauthor, sname = get_song_author_name_by_id(sid)
-                    download_url = upload_file_to_qiniu(sauthor + '_' + sname + '.m4a', origin_url)
+                    download_url = upload_file_to_qiniu(str(sid) + '.m4a', origin_url)
 
                     song = Song(sid=sid, sname=sname, sauthor=sauthor, spic=spic, origin_url=origin_url,
                                 download_url=download_url)

@@ -13,7 +13,7 @@ path = os.getcwd() + '/app/utils/stylize'
 trained_models_path = path + '/trained_model/'
 
 # 内容图路径
-content_image = path + '/temp/' + 'temp.jpg'
+content_image = path + '/temp/' + 'temp.png'
 
 
 # 压缩图片
