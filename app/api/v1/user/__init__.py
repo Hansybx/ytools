@@ -12,7 +12,7 @@ from flask import Blueprint, request, jsonify
 # 定义一个蓝图
 user = Blueprint('user', __name__)
 
-from app.api.v1.user import feedback, logd, login
+from app.api.v1.user import feedback, logd, login, net_speed
 
 
 @user.route('/')
